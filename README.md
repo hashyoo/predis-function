@@ -1,1 +1,2 @@
-# predis-function
+# predis
+`predis类操作封装`
