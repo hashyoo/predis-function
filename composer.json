@@ -5,10 +5,11 @@
     "keywords": ["function", "php", "laravel", "predis", "redis","redis操作"],
     "require": {
         "php": ">=5.6.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "hashyoo/damon-function": "~1.0"
+
     },
     "require-dev": {
-        "hashyoo/damon-function": "~1.0"
     },
     "license": "MIT",
     "authors": [
