@@ -16,11 +16,13 @@ class Plist extends PredisClient
 
     //expire($key, 20)
 
-    private function kkey($key){
-        return parent::key_list().$key;
+    private function kkey($key)
+    {
+        return parent::key_list() . $key;
     }
 
-    private function connect(){
+    private function connect()
+    {
         return parent::get_instance();
     }
 
@@ -34,12 +36,13 @@ class Plist extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function expire($table = '', $expire_time = 0,$db = null){
+    public function expire($table = '', $expire_time = 0, $db = null)
+    {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $table = self::kkey($table);
+        $table  = self::kkey($table);
         $result = $instance->expire($table, intval($expire_time));
         return $result;
     }
@@ -55,16 +58,16 @@ class Plist extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function lpush($table = '',$value = '',$db = null)
+    public function lpush($table = '', $value = '', $db = null)
     {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
 
-        $table = self::kkey($table);
-        $value    = json_encode($value);
-        $result   = $instance->lpush($table,$value);
+        $table  = self::kkey($table);
+        $value  = json_encode($value);
+        $result = $instance->lpush($table, $value);
         return $result;
     }
 
@@ -77,15 +80,16 @@ class Plist extends PredisClient
      * @return mixed|string
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function lpop($table = '',$db = null){
+    public function lpop($table = '', $db = null)
+    {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
 
-        $table = self::kkey($table);
-        $result   = $instance->lpop($table);
-        $result = json_decode($result,true);
+        $table  = self::kkey($table);
+        $result = $instance->lpop($table);
+        $result = json_decode($result, true);
         return $result;
     }
 
@@ -100,16 +104,16 @@ class Plist extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function rpush($table = '',$value = '',$db = null)
+    public function rpush($table = '', $value = '', $db = null)
     {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
 
-        $table = self::kkey($table);
-        $value    = json_encode($value);
-        $result   = $instance->rpush($table,$value);
+        $table  = self::kkey($table);
+        $value  = json_encode($value);
+        $result = $instance->rpush($table, $value);
         return $result;
     }
 
@@ -122,15 +126,16 @@ class Plist extends PredisClient
      * @return mixed|string
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function rpop($table = '',$db = null){
+    public function rpop($table = '', $db = null)
+    {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
 
-        $table = self::kkey($table);
-        $result   = $instance->rpop($table);
-        $result = json_decode($result,true);
+        $table  = self::kkey($table);
+        $result = $instance->rpop($table);
+        $result = json_decode($result, true);
         return $result;
     }
 
@@ -144,8 +149,9 @@ class Plist extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function queue_in($table = '',$value = '',$db = null){
-        $result = self::rpush($table,$value,$db);
+    public function queue_in($table = '', $value = '', $db = null)
+    {
+        $result = self::rpush($table, $value, $db);
         return $result;
     }
 
@@ -159,27 +165,27 @@ class Plist extends PredisClient
      * @return array
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function queue_mout($table = '',$num = 10,$db = null){
+    public function queue_mout($table = '', $num = 10, $db = null)
+    {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
 
-        $table = self::kkey($table);
-        $num = $num - 1;
-        $result   = $instance->lrange($table,0,$num);
+        $table    = self::kkey($table);
+        $num      = $num - 1;
+        $result   = $instance->lrange($table, 0, $num);
         $arr_data = [];
-        foreach ($result as $value)
-        {
-            $arr_data[] = json_decode($value,true);
+        foreach ($result as $value) {
+            $arr_data[] = json_decode($value, true);
         }
-//        $arr_data = [];
-//        for ($i = 0;$i < $num;$i++){
-//            $result = self::lpop($table);
-//            if(!is_null($result)){
-//                $arr_data[] = json_decode($result,true);
-//            }
-//        }
+        //        $arr_data = [];
+        //        for ($i = 0;$i < $num;$i++){
+        //            $result = self::lpop($table);
+        //            if(!is_null($result)){
+        //                $arr_data[] = json_decode($result,true);
+        //            }
+        //        }
         return $arr_data;
     }
 

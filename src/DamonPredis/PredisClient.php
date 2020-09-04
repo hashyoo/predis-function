@@ -32,24 +32,24 @@ class PredisClient
     //克隆方法私有化:禁止从外部克隆对象
     private function __clone() { }
 
-//    /**
-//     * 实现静态调用非静态方法
-//     *
-//     * @param $method
-//     * @param $arguments
-//     *
-//     * @return mixed
-//     * @throws \Exception
-//     * @author wumengmeng <wu_mengmeng@foxmail.com>
-//     */
-//    public static function __callStatic($method, $arguments)
-//    {
-//        $obj = new self();
-//        if (method_exists($obj, $method)) {
-//            return call_user_func_array([$obj, $method], $arguments);
-//        }
-//        throw new \Exception('static is call failed');
-//    }
+    //    /**
+    //     * 实现静态调用非静态方法
+    //     *
+    //     * @param $method
+    //     * @param $arguments
+    //     *
+    //     * @return mixed
+    //     * @throws \Exception
+    //     * @author wumengmeng <wu_mengmeng@foxmail.com>
+    //     */
+    //    public static function __callStatic($method, $arguments)
+    //    {
+    //        $obj = new self();
+    //        if (method_exists($obj, $method)) {
+    //            return call_user_func_array([$obj, $method], $arguments);
+    //        }
+    //        throw new \Exception('static is call failed');
+    //    }
 
     private function setting()
     {
@@ -58,36 +58,41 @@ class PredisClient
           'password' => env('REDIS_PASSWORD', null),
           'port'     => env('REDIS_PORT', 6379),
           'database' => env('REDIS_DB', 0),
-          'str'   => env('REDIS_STRING', 'string_'),
-//          //          'str_prefix' =>env('REDIS_STRING_DB',''),
-          'hash'  => env('REDIS_HASH', 'hash_'),
-//          //          'hash_prefix' =>env('REDIS_HASH_DB',''),
-          'list'  => env('REDIS_LIST', 'list_'),
-//          //          'list_prefix' =>env('REDIS_LIST_DB',''),
-          'set'   => env('REDIS_SET', 'set_'),
-//          //          'set_prefix' =>env('REDIS_SET_DB',''),
-          'zset'  => env('REDIS_ZSET', 'zset_'),
-//          //          'zset_prefix' =>env('REDIS_ZSET_DB',''),
+          'str'      => env('REDIS_STRING', 'string_'),
+          //          //          'str_prefix' =>env('REDIS_STRING_DB',''),
+          'hash'     => env('REDIS_HASH', 'hash_'),
+          //          //          'hash_prefix' =>env('REDIS_HASH_DB',''),
+          'list'     => env('REDIS_LIST', 'list_'),
+          //          //          'list_prefix' =>env('REDIS_LIST_DB',''),
+          'set'      => env('REDIS_SET', 'set_'),
+          //          //          'set_prefix' =>env('REDIS_SET_DB',''),
+          'zset'     => env('REDIS_ZSET', 'zset_'),
+          //          //          'zset_prefix' =>env('REDIS_ZSET_DB',''),
         ];
     }
 
-    protected function key_str(){
+    protected function key_str()
+    {
         return self::setting()['str'];
     }
 
-    protected function key_hash(){
+    protected function key_hash()
+    {
         return self::setting()['hash'];
     }
 
-    protected function key_list(){
+    protected function key_list()
+    {
         return self::setting()['list'];
     }
 
-    protected function key_set(){
+    protected function key_set()
+    {
         return self::setting()['set'];
     }
 
-    protected function key_zset(){
+    protected function key_zset()
+    {
         return self::setting()['zset'];
     }
 
@@ -96,7 +101,7 @@ class PredisClient
      */
     private function instance()
     {
-        $setting = yoo_array_remain(self::setting(),['host','password','port','database']);
+        $setting = yoo_array_remain(self::setting(), ['host', 'password', 'port', 'database']);
         return new Client($setting);
     }
 
@@ -122,32 +127,33 @@ class PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function redis_del($key,$db = null){
+    public function redis_del($key, $db = null)
+    {
         //del 删除
         $instance = self::get_instance();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $result   = $instance->del($key);
+        $result = $instance->del($key);
         return $result;//true
     }
 
-/*
-    //exists检测是否存在某值
-$redis->exists('foo');//true
+    /*
+        //exists检测是否存在某值
+    $redis->exists('foo');//true
 
-    //del 删除
-$redis->del('foo');//true
+        //del 删除
+    $redis->del('foo');//true
 
-//type 类型检测,字符串返回string,列表返回 list,set表返回set/zset,hash表返回hash
-$redis->type('foo'); //不存在,返回none
+    //type 类型检测,字符串返回string,列表返回 list,set表返回set/zset,hash表返回hash
+    $redis->type('foo'); //不存在,返回none
 
-$redis->keys('foo*');  //返回foo1和foo2的array
-$redis->keys('f?o?');   //同上
+    $redis->keys('foo*');  //返回foo1和foo2的array
+    $redis->keys('f?o?');   //同上
 
-//dbsize 返回redis当前数据库的记录总数
-$redis->dbsize();
+    //dbsize 返回redis当前数据库的记录总数
+    $redis->dbsize();
 
-*/
+    */
 
 }

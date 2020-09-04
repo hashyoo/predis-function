@@ -59,7 +59,6 @@ function predis_str_del($key = '', $db = null)
 }
 
 
-
 /************* redis-Hash表操作 *************/
 
 /**
@@ -72,7 +71,8 @@ function predis_str_del($key = '', $db = null)
  * @return mixed
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_hash_mset($table = '',$arr_data = [],$db = null){
+function predis_hash_mset($table = '', $arr_data = [], $db = null)
+{
     $result = Phash::mset($table, $arr_data, $db);
     return $result;
 }
@@ -88,8 +88,9 @@ function predis_hash_mset($table = '',$arr_data = [],$db = null){
  * @return int
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_hash_set($table = '',$key = '',$value = '', $db = null){
-    $result = Phash::set($table,$key,$value, $db);
+function predis_hash_set($table = '', $key = '', $value = '', $db = null)
+{
+    $result = Phash::set($table, $key, $value, $db);
     return $result;
 }
 
@@ -104,7 +105,8 @@ function predis_hash_set($table = '',$key = '',$value = '', $db = null){
  * @return int
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_hash_incr($table = '',$key = '',$step = 1, $db = null){
+function predis_hash_incr($table = '', $key = '', $step = 1, $db = null)
+{
     $result = Phash::incr($table, $key, $step, $db);
     return $result;
 }
@@ -120,7 +122,8 @@ function predis_hash_incr($table = '',$key = '',$step = 1, $db = null){
  * @return int
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_hash_decr($table = '',$key = '',$step = 1, $db = null){
+function predis_hash_decr($table = '', $key = '', $step = 1, $db = null)
+{
     $result = Phash::decr($table, $key, $step, $db);
     return $result;
 }
@@ -135,8 +138,9 @@ function predis_hash_decr($table = '',$key = '',$step = 1, $db = null){
  * @return string
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_hash_get($table = '',$key = '', $db = null){
-    $result = Phash::get($table,$key,$db);
+function predis_hash_get($table = '', $key = '', $db = null)
+{
+    $result = Phash::get($table, $key, $db);
     return $result;
 }
 
@@ -150,8 +154,9 @@ function predis_hash_get($table = '',$key = '', $db = null){
  * @return int
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_hash_del($table = '', $key = '', $db = null){
-    $result = Phash::del($table,$key, $db);
+function predis_hash_del($table = '', $key = '', $db = null)
+{
+    $result = Phash::del($table, $key, $db);
     return $result;
 }
 
@@ -164,8 +169,9 @@ function predis_hash_del($table = '', $key = '', $db = null){
  * @return int
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_hash_del_all($table = '',$db = null){
-    $result = Phash::delall($table,$db);
+function predis_hash_del_all($table = '', $db = null)
+{
+    $result = Phash::delall($table, $db);
     return $result;
 }
 
@@ -179,11 +185,11 @@ function predis_hash_del_all($table = '',$db = null){
  * @return int
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_hash_expire($table = '',$expire_time = 0,$db = null){
+function predis_hash_expire($table = '', $expire_time = 0, $db = null)
+{
     $result = Phash::expire($table, $expire_time, $db);
     return $result;
 }
-
 
 
 /************* redis-队列操作 *************/
@@ -198,8 +204,9 @@ function predis_hash_expire($table = '',$expire_time = 0,$db = null){
  * @return int
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_queue_lpush($table = '',$value = '',$db = null){
-    $result = Plist::lpush($table,$value,$db);
+function predis_queue_lpush($table = '', $value = '', $db = null)
+{
+    $result = Plist::lpush($table, $value, $db);
     return $result;
 }
 
@@ -212,8 +219,9 @@ function predis_queue_lpush($table = '',$value = '',$db = null){
  * @return mixed|string
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_queue_lpop($table = '',$db = null){
-    $result = Plist::lpop($table,$db);
+function predis_queue_lpop($table = '', $db = null)
+{
+    $result = Plist::lpop($table, $db);
     return $result;
 }
 
@@ -228,8 +236,9 @@ function predis_queue_lpop($table = '',$db = null){
  * @return int
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_queue_rpush($table = '',$value = '',$db = null){
-    $result = Plist::rpush($table,$value,$db);
+function predis_queue_rpush($table = '', $value = '', $db = null)
+{
+    $result = Plist::rpush($table, $value, $db);
     return $result;
 }
 
@@ -242,8 +251,9 @@ function predis_queue_rpush($table = '',$value = '',$db = null){
  * @return mixed|string
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_queue_rpop($table = '',$db = null){
-    $result = Plist::rpop($table,$db);
+function predis_queue_rpop($table = '', $db = null)
+{
+    $result = Plist::rpop($table, $db);
     return $result;
 }
 
@@ -257,8 +267,9 @@ function predis_queue_rpop($table = '',$db = null){
  * @return int
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function queue_in($table = '',$value = '',$db = null){
-    $result = Plist::queue_in($table,$value,$db);
+function queue_in($table = '', $value = '', $db = null)
+{
+    $result = Plist::queue_in($table, $value, $db);
     return $result;
 }
 
@@ -272,8 +283,9 @@ function queue_in($table = '',$value = '',$db = null){
  * @return array
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function queue_mout($table = '',$num = 10,$db = null){
-    $result = Plist::queue_mout($table,$num,$db);
+function queue_mout($table = '', $num = 10, $db = null)
+{
+    $result = Plist::queue_mout($table, $num, $db);
     return $result;
 }
 
@@ -287,14 +299,13 @@ function queue_mout($table = '',$num = 10,$db = null){
  * @return int
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_list_expire($table = '',$expire_time = 0,$db = null){
+function predis_list_expire($table = '', $expire_time = 0, $db = null)
+{
     $result = Plist::expire($table, $expire_time, $db);
     return $result;
 }
 
 /************* redis-set操作 *************/
-
-
 
 
 /************* redis-zset操作 *************/
@@ -310,8 +321,9 @@ function predis_list_expire($table = '',$expire_time = 0,$db = null){
  * @return string
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_zset_incr($table = '',$member = '',$step = 0,$db = null){
-    $result = Pzset::incr($table,$member,$step,$db);
+function predis_zset_incr($table = '', $member = '', $step = 0, $db = null)
+{
+    $result = Pzset::incr($table, $member, $step, $db);
     return $result;
 }
 
@@ -326,8 +338,9 @@ function predis_zset_incr($table = '',$member = '',$step = 0,$db = null){
  * @return string
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_zset_decr($table = '',$member = '',$step = 0,$db = null){
-    $result = Pzset::decr($table,$member,$step,$db);
+function predis_zset_decr($table = '', $member = '', $step = 0, $db = null)
+{
+    $result = Pzset::decr($table, $member, $step, $db);
     return $result;
 }
 
@@ -341,7 +354,8 @@ function predis_zset_decr($table = '',$member = '',$step = 0,$db = null){
  * @return array
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_zset_take($table = '',$num = 1,$db = null){
+function predis_zset_take($table = '', $num = 1, $db = null)
+{
     $result = Pzset::take($table, $num, $db);
     return $result;
 }
@@ -356,7 +370,8 @@ function predis_zset_take($table = '',$num = 1,$db = null){
  * @return array
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_zset_take_desc($table = '',$num = 1,$db = null){
+function predis_zset_take_desc($table = '', $num = 1, $db = null)
+{
     $result = Pzset::take_desc($table, $num, $db);
     return $result;
 }
@@ -370,7 +385,8 @@ function predis_zset_take_desc($table = '',$num = 1,$db = null){
  * @return int
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_zset_del($table = '',$db = null){
+function predis_zset_del($table = '', $db = null)
+{
     $result = Pzset::delall($table, $db);
     return $result;
 }
@@ -385,8 +401,9 @@ function predis_zset_del($table = '',$db = null){
  * @return int
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_zset_rem($table = '',$member = '',$db = null){
-    $result = Pzset::del($table,$member,$db);
+function predis_zset_rem($table = '', $member = '', $db = null)
+{
+    $result = Pzset::del($table, $member, $db);
     return $result;
 }
 
@@ -401,7 +418,8 @@ function predis_zset_rem($table = '',$member = '',$db = null){
  * @return int
  * @author wumengmeng <wu_mengmeng@foxmail.com>
  */
-function predis_zset_expire($table,$expire_time = 0,$db = null){
+function predis_zset_expire($table, $expire_time = 0, $db = null)
+{
     $result = Pzset::expire($table, $expire_time, $db);
     return $result;
 }

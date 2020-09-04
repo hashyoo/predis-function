@@ -16,11 +16,13 @@ class Pstring extends PredisClient
 
     //expire($key, 20)
 
-    private function kkey($key){
-        return parent::key_str().$key;
+    private function kkey($key)
+    {
+        return parent::key_str() . $key;
     }
 
-    private function connect(){
+    private function connect()
+    {
         return parent::get_instance();
     }
 
@@ -37,13 +39,14 @@ class Pstring extends PredisClient
      */
     public function set($key = '', $value = '', $expire_time = null, $db = null)
     {
-        $key = self::kkey($key);
+        $key      = self::kkey($key);
         $value    = json_encode($value);
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $result   = $instance->set($key, $value)->getPayload();
+        $result = $instance->set($key, $value)
+                           ->getPayload();
         if ($expire_time !== null) {
             $result = $instance->expire($key, intval($expire_time));
         }
@@ -62,12 +65,12 @@ class Pstring extends PredisClient
      */
     public function get($key = '', $db = null)
     {
-        $key = self::kkey($key);
+        $key      = self::kkey($key);
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $result   = json_decode($instance->get($key), true);
+        $result = json_decode($instance->get($key), true);
         return $result;
     }
 
@@ -81,14 +84,14 @@ class Pstring extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function incr($key = '', $step = 1,$db = null)
+    public function incr($key = '', $step = 1, $db = null)
     {
-        $key = self::kkey($key);
+        $key      = self::kkey($key);
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $result   = $instance->incrby($key, $step);
+        $result = $instance->incrby($key, $step);
         return $result;
     }
 
@@ -102,14 +105,14 @@ class Pstring extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function decr($key = '', $step = 1,$db = null)
+    public function decr($key = '', $step = 1, $db = null)
     {
-        $key = self::kkey($key);
+        $key      = self::kkey($key);
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $result   = $instance->decrby($key, $step);
+        $result = $instance->decrby($key, $step);
         return $result;
     }
 
@@ -122,9 +125,10 @@ class Pstring extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function del($key = '',$db = null){
-        $key = self::kkey($key);
-        $result = parent::redis_del($key,$db);
+    public function del($key = '', $db = null)
+    {
+        $key    = self::kkey($key);
+        $result = parent::redis_del($key, $db);
         return $result;
     }
 

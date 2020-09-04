@@ -16,11 +16,13 @@ class Pzset extends PredisClient
 
     //expire($key, 20)
 
-    private function kkey($key){
-        return parent::key_zset().$key;
+    private function kkey($key)
+    {
+        return parent::key_zset() . $key;
     }
 
-    private function connect(){
+    private function connect()
+    {
         return parent::get_instance();
     }
 
@@ -33,12 +35,13 @@ class Pzset extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function expire($table = '', $expire_time = 0,$db = null){
+    public function expire($table = '', $expire_time = 0, $db = null)
+    {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $table = self::kkey($table);
+        $table  = self::kkey($table);
         $result = $instance->expire($table, intval($expire_time));
         return $result;
     }
@@ -54,13 +57,14 @@ class Pzset extends PredisClient
      * @return string
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function incr($table = '',$member = '',$step = 0,$db = null){
+    public function incr($table = '', $member = '', $step = 0, $db = null)
+    {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
 
-        $table = self::kkey($table);
+        $table  = self::kkey($table);
         $result = $instance->zincrby($table, $step, $member);
         return $result;
     }
@@ -76,14 +80,15 @@ class Pzset extends PredisClient
      * @return string
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function decr($table = '',$member = '',$step = 0,$db = null){
+    public function decr($table = '', $member = '', $step = 0, $db = null)
+    {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
 
-        $table = self::kkey($table);
-        $step = -$step;
+        $table  = self::kkey($table);
+        $step   = -$step;
         $result = $instance->zincrby($table, $step, $member);
         return $result;
     }
@@ -98,14 +103,15 @@ class Pzset extends PredisClient
      * @return array
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function take($table = '',$num = 1,$db = null){
+    public function take($table = '', $num = 1, $db = null)
+    {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
         $table = self::kkey($table);
 
-        $result = $instance->zrange($table, 0, $num-1);
+        $result = $instance->zrange($table, 0, $num - 1);
         return $result;
     }
 
@@ -119,15 +125,16 @@ class Pzset extends PredisClient
      * @return array
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function take_desc($table = '',$num = 1,$db = null){
+    public function take_desc($table = '', $num = 1, $db = null)
+    {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
 
         //    $re = $redis->zRevRangeByScore($s_zset, 0, $num,['withscores' =>true, 'limit' => [1, 1]]);
-        $table = self::kkey($table);
-        $result = $instance->zRevRange($table, 0, $num,true);
+        $table  = self::kkey($table);
+        $result = $instance->zRevRange($table, 0, $num, true);
         return $result;
     }
 
@@ -140,14 +147,15 @@ class Pzset extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function delall($table = '',$db = null){
+    public function delall($table = '', $db = null)
+    {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
 
-        $table = self::kkey($table);
-        $result = parent::redis_del($table,$db);
+        $table  = self::kkey($table);
+        $result = parent::redis_del($table, $db);
         return $result;
     }
 
@@ -161,14 +169,15 @@ class Pzset extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function del($table = '',$member = '',$db = null){
+    public function del($table = '', $member = '', $db = null)
+    {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
 
-        $table = self::kkey($table);
-        $result = $instance->zrem($table,$member);
+        $table  = self::kkey($table);
+        $result = $instance->zrem($table, $member);
         return $result;
     }
 

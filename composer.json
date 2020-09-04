@@ -1,32 +1,38 @@
 {
-    "name": "hashyoo/predis-function",
-    "description": "封装redis操作，常用的redis操作",
-    "type": "library",
-    "keywords": ["function", "php", "laravel", "predis", "redis","redis操作"],
-    "require": {
-        "php": ">=5.6.0",
-        "predis/predis": "^1.1",
-        "hashyoo/damon-function": "~1.0"
-
-    },
-    "require-dev": {
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "damon",
-            "email": "644577519@qq.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "autoload": {
-        "psr-4": {
-            "DamonPredis\\": "src/DamonPredis"
-        },
-        "classmap": [
-        ],
-        "files": [
-            "src/function/helper-redis.php"
-        ]
+  "name": "hashyoo/predis-function",
+  "description": "封装redis操作，常用的redis操作",
+  "type": "library",
+  "keywords": [
+    "function",
+    "php",
+    "laravel",
+    "predis",
+    "redis",
+    "redis操作"
+  ],
+  "require": {
+    "php": ">=5.6.0",
+    "predis/predis": "^1.1",
+    "hashyoo/damon-function": "~1.0"
+  },
+  "require-dev": {
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "damon",
+      "email": "644577519@qq.com"
     }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "DamonPredis\\": "src/DamonPredis"
+    },
+    "classmap": [
+    ],
+    "files": [
+      "src/function/helper-redis.php"
+    ]
+  }
 }

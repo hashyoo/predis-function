@@ -16,11 +16,13 @@ class Phash extends PredisClient
 
     //expire($key, 20)
 
-    private function kkey($key){
-        return parent::key_hash().$key;
+    private function kkey($key)
+    {
+        return parent::key_hash() . $key;
     }
 
-    private function connect(){
+    private function connect()
+    {
         return parent::get_instance();
     }
 
@@ -33,12 +35,13 @@ class Phash extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function expire($table = '', $expire_time = 0,$db = null){
+    public function expire($table = '', $expire_time = 0, $db = null)
+    {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $table = self::kkey($table);
+        $table  = self::kkey($table);
         $result = $instance->expire($table, intval($expire_time));
         return $result;
     }
@@ -54,15 +57,15 @@ class Phash extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function set($table = '',$key = '',$value = '', $db = null)
+    public function set($table = '', $key = '', $value = '', $db = null)
     {
         $table = self::kkey($table);
-//        $value    = json_encode($value);
+        //        $value    = json_encode($value);
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $result = $instance->hset($table,$key,$value);
+        $result = $instance->hset($table, $key, $value);
         return $result;
     }
 
@@ -77,14 +80,14 @@ class Phash extends PredisClient
      * @return string
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function get($table = '',$key = '',$db = null)
+    public function get($table = '', $key = '', $db = null)
     {
-        $table = self::kkey($table);
+        $table    = self::kkey($table);
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $result   = $instance->hget($table,$key);
+        $result = $instance->hget($table, $key);
         return $result;
     }
 
@@ -98,14 +101,14 @@ class Phash extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function del($table = '', $key = '',$db = null)
+    public function del($table = '', $key = '', $db = null)
     {
-        $table = self::kkey($table);
+        $table    = self::kkey($table);
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $result   = $instance->hdel($table,$key); //true or false
+        $result = $instance->hdel($table, $key); //true or false
         return $result;
     }
 
@@ -119,14 +122,15 @@ class Phash extends PredisClient
      * @return mixed
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function mset($table = '',$arr_data = [],$db = null)
+    public function mset($table = '', $arr_data = [], $db = null)
     {
-        $table = self::kkey($table);
+        $table    = self::kkey($table);
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $result = $instance->hmset($table,$arr_data)->getPayload();
+        $result = $instance->hmset($table, $arr_data)
+                           ->getPayload();
         return $result;
     }
 
@@ -140,14 +144,14 @@ class Phash extends PredisClient
      * @return mixed
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function mget($table,$arr_key = [],$db = null)
+    public function mget($table, $arr_key = [], $db = null)
     {
-        $table = self::kkey($table);
+        $table    = self::kkey($table);
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $result = $instance->hmget($table,$arr_key);
+        $result = $instance->hmget($table, $arr_key);
         return $result;
     }
 
@@ -160,11 +164,11 @@ class Phash extends PredisClient
      * @return array
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function getall($table,$db = null)
+    public function getall($table, $db = null)
     {
-        $table = self::kkey($table);
+        $table    = self::kkey($table);
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
         $result = $instance->hgetall($table);
@@ -181,9 +185,10 @@ class Phash extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function delall($table = '',$db = null){
-        $table = self::kkey($table);
-        $result = parent::redis_del($table,$db);
+    public function delall($table = '', $db = null)
+    {
+        $table  = self::kkey($table);
+        $result = parent::redis_del($table, $db);
         return $result;
     }
 
@@ -199,14 +204,14 @@ class Phash extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function incr($table = '',$key = '',$step = 1, $db = null)
+    public function incr($table = '', $key = '', $step = 1, $db = null)
     {
-        $table = self::kkey($table);
+        $table    = self::kkey($table);
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $result   = $instance->hincrby($table,$key,$step);
+        $result = $instance->hincrby($table, $key, $step);
         return $result;
     }
 
@@ -221,18 +226,16 @@ class Phash extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function decr($table = '',$key = '',$step = 1, $db = null)
+    public function decr($table = '', $key = '', $step = 1, $db = null)
     {
-        $table = self::kkey($table);
+        $table    = self::kkey($table);
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $result   = $instance->hincrby($table,$key,-$step);
+        $result = $instance->hincrby($table, $key, -$step);
         return $result;
     }
-
-
 
 
 }

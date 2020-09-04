@@ -16,11 +16,13 @@ class Pset extends PredisClient
 
     //expire($key, 20)
 
-    private function kkey($key){
-        return parent::key_set().$key;
+    private function kkey($key)
+    {
+        return parent::key_set() . $key;
     }
 
-    private function connect(){
+    private function connect()
+    {
         return parent::get_instance();
     }
 
@@ -33,12 +35,13 @@ class Pset extends PredisClient
      * @return int
      * @author wumengmeng <wu_mengmeng@foxmail.com>
      */
-    public function expire($table = '', $expire_time = 0,$db = null){
+    public function expire($table = '', $expire_time = 0, $db = null)
+    {
         $instance = self::connect();
-        if($db !== null){
+        if ($db !== null) {
             $instance->select(intval($db));
         }
-        $table = self::kkey($table);
+        $table  = self::kkey($table);
         $result = $instance->expire($table, intval($expire_time));
         return $result;
     }
