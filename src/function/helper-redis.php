@@ -9,7 +9,6 @@
 use \DamonPredis\Pstring;
 use \DamonPredis\Phash;
 use \DamonPredis\Plist;
-use \DamonPredis\Pset;
 use \DamonPredis\Pzset;
 
 /**
