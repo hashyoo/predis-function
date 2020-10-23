@@ -21,10 +21,6 @@ class PredisClient
      * 3. 为什么要有初始值null,因为类内部访问接口需要检测实例的状态,判断是否需要实例化
      */
 
-    private static $instance;
-
-    //保存用户的自定义配置参数
-    private static $setting = [];
 
     //构造器私有化:禁止从类外部实例化
     private function __construct() { }
@@ -32,42 +28,19 @@ class PredisClient
     //克隆方法私有化:禁止从外部克隆对象
     private function __clone() { }
 
-    //    /**
-    //     * 实现静态调用非静态方法
-    //     *
-    //     * @param $method
-    //     * @param $arguments
-    //     *
-    //     * @return mixed
-    //     * @throws \Exception
-    //     * @author wumengmeng <wu_mengmeng@foxmail.com>
-    //     */
-    //    public static function __callStatic($method, $arguments)
-    //    {
-    //        $obj = new self();
-    //        if (method_exists($obj, $method)) {
-    //            return call_user_func_array([$obj, $method], $arguments);
-    //        }
-    //        throw new \Exception('static is call failed');
-    //    }
-
     private function setting()
     {
+        $redis_workname = env('REDIS_WORK','default');
         return [
           'host'     => env('REDIS_HOST', '127.0.0.1'),
           'password' => env('REDIS_PASSWORD', null),
           'port'     => env('REDIS_PORT', 6379),
           'database' => env('REDIS_DB', 0),
-          'str'      => env('REDIS_STRING', 'string_'),
-          //          //          'str_prefix' =>env('REDIS_STRING_DB',''),
-          'hash'     => env('REDIS_HASH', 'hash_'),
-          //          //          'hash_prefix' =>env('REDIS_HASH_DB',''),
-          'list'     => env('REDIS_LIST', 'list_'),
-          //          //          'list_prefix' =>env('REDIS_LIST_DB',''),
-          'set'      => env('REDIS_SET', 'set_'),
-          //          //          'set_prefix' =>env('REDIS_SET_DB',''),
-          'zset'     => env('REDIS_ZSET', 'zset_'),
-          //          //          'zset_prefix' =>env('REDIS_ZSET_DB',''),
+          'str'      => $redis_workname.':str:',
+          'hash'     => $redis_workname.':hash:',
+          'list'     => $redis_workname.':list:',
+          'set'      => $redis_workname.':set:',
+          'zset'     => $redis_workname.':zset:',
         ];
     }
 
@@ -96,28 +69,10 @@ class PredisClient
         return self::setting()['zset'];
     }
 
-    /**
-     * 连接上的redis的私有化方法
-     */
-    private function instance()
+    protected function get_instance()
     {
         $setting = yoo_array_remain(self::setting(), ['host', 'password', 'port', 'database']);
         return new Client($setting);
-    }
-
-    //因为用静态属性返回类实例,而只能在静态方法使用静态属性
-    //所以必须创建一个静态方法来生成当前类的唯一实例
-    protected function get_instance()
-    {
-        return self::instance();
-        //检测当前类属性$instance是否已经保存了当前类的实例
-        if (!isset(self::$instance) || (self::$instance === null)) {
-            //如果没有,则创建当前类的实例
-
-            self::$instance = self::instance();
-        }
-        //如果已经有了当前类实例,就直接返回,不要重复创建类实例
-        return self::$instance;
     }
 
     /**
@@ -139,22 +94,6 @@ class PredisClient
         return $result;//true
     }
 
-    /*
-        //exists检测是否存在某值
-    $redis->exists('foo');//true
 
-        //del 删除
-    $redis->del('foo');//true
-
-    //type 类型检测,字符串返回string,列表返回 list,set表返回set/zset,hash表返回hash
-    $redis->type('foo'); //不存在,返回none
-
-    $redis->keys('foo*');  //返回foo1和foo2的array
-    $redis->keys('f?o?');   //同上
-
-    //dbsize 返回redis当前数据库的记录总数
-    $redis->dbsize();
-
-    */
 
 }
