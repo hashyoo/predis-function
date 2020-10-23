@@ -109,6 +109,7 @@ class PredisClient
     //所以必须创建一个静态方法来生成当前类的唯一实例
     protected function get_instance()
     {
+        return self::instance();
         //检测当前类属性$instance是否已经保存了当前类的实例
         if (!isset(self::$instance) || (self::$instance === null)) {
             //如果没有,则创建当前类的实例
