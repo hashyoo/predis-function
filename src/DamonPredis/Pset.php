@@ -27,7 +27,7 @@ class Pset extends PredisClient
     }
 
     /**
-     * 设置zset表有效期-zset类型
+     * 设置set表有效期-set类型
      *
      * @param string $table
      * @param int    $expire_time
@@ -43,6 +43,28 @@ class Pset extends PredisClient
         }
         $table  = self::kkey($table);
         $result = $instance->expire($table, intval($expire_time));
+        return $result;
+    }
+
+    /**
+     * 添加元素
+     *
+     * @param string $table
+     * @param array  $arr_member
+     * @param null   $db
+     *
+     * @return int
+     * @author wumengmeng <wu_mengmeng@foxmail.com>
+     */
+    public function add_members($table = '', $arr_member = [], $db = null)
+    {
+        $instance = self::connect();
+        if ($db !== null) {
+            $instance->select(intval($db));
+        }
+
+        $table  = self::kkey($table);
+        $result = $instance->sadd($table, $arr_member);
         return $result;
     }
 

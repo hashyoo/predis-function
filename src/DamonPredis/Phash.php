@@ -175,7 +175,6 @@ class Phash extends PredisClient
         return $result;
     }
 
-
     /**
      * 删除整个hash表-hash类型
      *
@@ -191,7 +190,6 @@ class Phash extends PredisClient
         $result = parent::redis_del($table, $db);
         return $result;
     }
-
 
     /**
      * 元素值递增-hash类型
@@ -236,6 +234,28 @@ class Phash extends PredisClient
         $result = $instance->hincrby($table, $key, -$step);
         return $result;
     }
+
+    /**
+     * hash表元素的个数
+     *
+     * @param string $table
+     * @param null   $db
+     *
+     * @return int
+     * @author wumengmeng <wu_mengmeng@foxmail.com>
+     */
+    public function count($table = '', $db = null)
+    {
+        $table    = self::kkey($table);
+        $instance = self::connect();
+        if ($db !== null) {
+            $instance->select(intval($db));
+        }
+        $result = $instance->hlen($table);
+        return $result;
+
+    }
+
 
 
 }

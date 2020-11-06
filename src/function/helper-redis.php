@@ -1,6 +1,6 @@
 <?php
 /**
- * Created  by PhpStorm.
+ * Created by PhpStorm.
  * User: wumengmeng <wu_mengmeng@foxmail.com>
  * Date: 2020/6/30 0030
  * Time: 18:00
@@ -10,6 +10,7 @@ use \DamonPredis\Pstring;
 use \DamonPredis\Phash;
 use \DamonPredis\Plist;
 use \DamonPredis\Pzset;
+use \DamonPredis\Pset;
 
 /**
  * 存储数据-string类型
@@ -145,6 +146,22 @@ function predis_hash_get($table = '', $key = '', $db = null)
 }
 
 /**
+ * 获取多个元素-hash类型
+ *
+ * @param string $table
+ * @param array  $arr_key
+ * @param null   $db
+ *
+ * @return mixed
+ * @author wumengmeng <wu_mengmeng@foxmail.com>
+ */
+function predis_hash_mget($table = '', $arr_key = [], $db = null)
+{
+    $result = Phash::mget($table, $arr_key, $db);
+    return $result;
+}
+
+/**
  * 删除单个元素-hash类型
  *
  * @param string $table
@@ -190,6 +207,22 @@ function predis_hash_expire($table = '', $expire_time = 0, $db = null)
     $result = Phash::expire($table, $expire_time, $db);
     return $result;
 }
+
+/**
+ * 整个hash表元素的个数
+ *
+ * @param string $table
+ * @param null   $db
+ *
+ * @return int
+ * @author wumengmeng <wu_mengmeng@foxmail.com>
+ */
+function predis_hash_count($table = '', $db = null)
+{
+    $result = Phash::count($table,$db);
+    return $result;
+}
+
 
 
 /************* redis-队列操作 *************/
@@ -306,10 +339,23 @@ function predis_list_expire($table = '', $expire_time = 0, $db = null)
 }
 
 /************* redis-set操作 *************/
-
+/**
+ * 添加元素-set类型
+ *
+ * @param string $table
+ * @param string $member
+ * @param null   $db
+ *
+ * @return int
+ * @author wumengmeng <wu_mengmeng@foxmail.com>
+ */
+function predis_set_add($table = '', $member = '',$db = null)
+{
+    $result = Pset::add_members($table, [$member], $db);
+    return $result;
+}
 
 /************* redis-zset操作 *************/
-
 /**
  * 元素递增-zset类型
  *
@@ -406,7 +452,6 @@ function predis_zset_rem($table = '', $member = '', $db = null)
     $result = Pzset::del($table, $member, $db);
     return $result;
 }
-
 
 /**
  * 设置zset表过期时间-zset类型
