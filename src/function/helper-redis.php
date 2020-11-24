@@ -162,6 +162,20 @@ function predis_hash_mget($table = '', $arr_key = [], $db = null)
 }
 
 /**
+ * 获取全部元素-hash类型
+ *
+ * @param string $table
+ * @param null   $db
+ *
+ * @return array
+ * @author wumengmeng <wu_mengmeng@foxmail.com>
+ */
+function predis_hash_getall($table = '',$db = null){
+    $result = Phash::getall($table, $db);
+    return $result;
+}
+
+/**
  * 删除单个元素-hash类型
  *
  * @param string $table
